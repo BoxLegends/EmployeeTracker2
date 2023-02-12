@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const cTable = require("console.table");
+const {printTable} = require("console-table-printer")
 const mysql = require("mysql2");
 
 const db = mysql.createConnection(
@@ -15,8 +15,7 @@ const db = mysql.createConnection(
 
 
 function menu() {
-  inquirer.prompt([
-    {
+  inquirer.prompt([{
     type: 'list',
     message: 'Select an option',
     name: 'option',
@@ -29,8 +28,11 @@ function menu() {
         "add a role", 
         "add an employee", 
         "update an employee role"
-        ]
-    }.then(response =>{
+    ]
+
+      
+    }])
+    .then(response =>{
         if(response.option === "view all departments" ){
             db.query("SELECT id, name as department_name from department ORDER BY name");
             
@@ -44,35 +46,10 @@ function menu() {
             console.log("add a role");
         }else if(response.option === "add an employee"){
             console.log("add an employee");
-        }//else (response.option === "update an employee role"){
-
-        //}
+        }
     })
-])}
+}
 
 menu();
 
     
-//     {
-//       type: 'input',
-//       message: 'What is your user name?',
-//       name: 'username',
-//     },
-//     {
-//       type: 'password',
-//       message: 'What is your password?',
-//       name: 'password',
-//     },
-//     {
-//       type: 'password',
-//       message: 'Re-enter password to confirm:',
-//       name: 'confirm',
-//     },
-//   ])
-//   .then((response) =>
-//     response.confirm === response.password
-//       ? console.log('Success!')
-//       : console.log('You forgot your password already?!')
-//   );
-
-// }
