@@ -1,7 +1,10 @@
 const inquirer = require('inquirer');
+const cTable = require("console.table");
+const mysql = require("mysql2");
+
 const db = mysql.createConnection(
     {
-      host: "127.0.0.1",
+      host: 'localhost',
       user: 'root',
       password: 'Nicholas11',
       database: 'emp_db',
@@ -27,8 +30,7 @@ function menu() {
         "add an employee", 
         "update an employee role"
         ]
-    }
-    .then(response =>{
+    }.then(response =>{
         if(response.option === "view all departments" ){
             db.query("SELECT id, name as department_name from department ORDER BY name");
             
