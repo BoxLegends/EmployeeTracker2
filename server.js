@@ -8,8 +8,7 @@ const db = mysql.createConnection(
       user: 'root',
       password: 'Nicholas11',
       database: 'emp_db',
-    },
-    console.log(`Connected to the Employee database.`)
+    }
   );
 
 
@@ -34,21 +33,45 @@ function menu() {
     }])
     .then(response =>{
         if(response.option === "view all departments" ){
-            db.query("SELECT id, name as department_name from department ORDER BY name");
-            
+            viewDepartment();
+
         }else if(response.option === "view all roles"){
-            console.log("view all roles");
+            viewRole();
+
         }else if(response.option === "view all employees"){
-            console.log("view all emp");
+            viewEmployee();
+            
         }else if(response.option === "add a department"){
-            console.log("view all dept");
+            
         }else if(response.option === "add a role"){
-            console.log("add a role");
+           
         }else if(response.option === "add an employee"){
-            console.log("add an employee");
+           
         }
     })
 }
+
+function viewDepartment() {  
+    db.query("select * from department", function(err, data){
+      printTable(data)
+      menu()
+    })
+}
+
+function viewEmployee() {
+    db.query("select * from employee", function(err, data){
+      printTable(data)
+      menu()
+    })
+  }
+
+  function viewRole() {
+    db.query("select * from role", function(err, data){
+      printTable(data)
+      menu()
+    })
+  }
+
 
 menu();
 
